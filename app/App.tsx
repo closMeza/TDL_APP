@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   TextInput,
@@ -20,7 +20,7 @@ const App: React.FC = () => {
   const [currentList, setCurrentList] = useState<TaskList>([]);
   const [isViewingList, setIsViewingList] = useState<boolean>(false);
   const [regenerateCount, setRegenerateCount] = useState<number>(0);
-
+  const [test, setTestMessage] = useState<string>('Temp');
   const fetchStepsFromAPI = async (task: string) => {
     return [`${task} step 1`, `${task} step 2`, `${task} step 3`];
   };
@@ -52,6 +52,18 @@ const App: React.FC = () => {
     setCurrentList([]);
   };
 
+  useEffect(() => {
+    fetch('https://14db-2603-8002-500-318e-4405-ad41-487e-3b5e.ngrok.io/test')
+      .then(response => response.json())
+      .then(data => {
+          console.log(data.message); 
+          setTestMessage(data.message) // Should print "Server is working!"
+      })
+      .catch(error => {
+          console.error('Error fetching data:', error);
+      });
+  }, []); 
+
   return (
     <View style={styles.container}>
       {!isViewingList ? (
@@ -63,6 +75,7 @@ const App: React.FC = () => {
             style={styles.input}
           />
           <Button title="Generate To-Do List" onPress={handleCreateList} />
+          <Text> {test}</Text>
           {currentList.length > 0 && (
             <View>
               <FlatList
