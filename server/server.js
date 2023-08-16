@@ -1,8 +1,9 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
-const axios = require('axios');
 const rateLimit = require('express-rate-limit');
+const bodyParser = require('body-parser');
+const openAI = require('./openAICalls');
 
 
 
@@ -18,31 +19,26 @@ const PORT = 3000;
 
 // Replace '*' with my React Native app's domain when deploying
 app.use(cors());
+app.use(bodyParser.json());
 
-// Replace with my OpenAI API key
-const OPENAI_API_KEY = 'MY_OPENAI_API_KEY';
+app.post('/generatePrompt', async (req, res) => {
+    try 
+    {
+        // console.log(req)
+        const body = req.body;
 
-app.get('/generatePrompt', async (req, res) => {
-    try {
-        const response = await fetch.post('https://api.openai.com/v1/engines/davinci/completions', {
-            prompt: req.query.prompt,
-            max_tokens: 150
-        }, {
-            headers: {
-                'Authorization': `Bearer ${OPENAI_API_KEY}`,
-                'Content-Type': 'application/json'
-            }
-        });
+        console.log(body);
 
-        res.json(response.data.choices[0].text.trim());
-    } catch (error) {
+        res.json({ message: 'Hi from the server' });
+    } 
+    catch (error) 
+    {
         res.status(500).send('Error generating prompt');
     }
 });
 
 app.get('/test', (req, res) => {
-    console.log('pinged')
-    res.json({ message: 'Elisa is my world!' });
+    res.json({ message: 'Hi from the server' });
 });
 
 
