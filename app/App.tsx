@@ -20,21 +20,22 @@ const App: React.FC = () => {
   const [currentList, setCurrentList] = useState<TaskList>([]);
   const [isViewingList, setIsViewingList] = useState<boolean>(false);
   const [regenerateCount, setRegenerateCount] = useState<number>(0);
-  const [test, setTestMessage] = useState<string>('Temp');
-  
-  
+  const [test, setTestMessage] = useState<string>("Temp");
+
   const fetchStepsFromAPI = async (task: string) => {
-    const response = await fetch('https://2619-2603-8002-500-318e-3559-4da1-26bf-d996.ngrok.io/generatePrompt',
-    {
-      method:'POST',
-      headers:{
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: task
-      })  
-    })
-    console.log(await response.json())
+    const response = await fetch(
+      "https://819c-76-168-36-100.ngrok.io/generatePrompt",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          message: task,
+        }),
+      }
+    );
+    console.log(await response.json());
     return [`${task} step 1`, `${task} step 2`, `${task} step 3`];
   };
 
@@ -66,18 +67,16 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch('https://2619-2603-8002-500-318e-3559-4da1-26bf-d996.ngrok.io/test',{
-
-    })
-      .then(response => response.json())
-      .then(data => {
-          console.log(data.message); 
-          setTestMessage(data.message) // Should print "Server is working!"
+    fetch("https://819c-76-168-36-100.ngrok.io/test", {})
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message);
+        setTestMessage(data.message); // Should print "Server is working!"
       })
-      .catch(error => {
-          console.error('Error fetching data:', error);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
-  }, []); 
+  }, []);
 
   return (
     <View style={styles.container}>
