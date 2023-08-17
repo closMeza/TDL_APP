@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   const fetchStepsFromAPI = async (task: string) => {
     const response = await fetch(
-      "https://819c-76-168-36-100.ngrok.io/generatePrompt",
+      "https://f4f8-76-168-36-100.ngrok.io/generatePrompt",
       {
         method: "POST",
         headers: {
@@ -67,7 +67,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch("https://819c-76-168-36-100.ngrok.io/test", {})
+    fetch("https://f4f8-76-168-36-100.ngrok.io/test", {})
       .then((response) => response.json())
       .then((data) => {
         console.log(data.message);
